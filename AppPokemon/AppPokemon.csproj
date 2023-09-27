@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>poke.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -65,6 +68,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -78,6 +82,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="poke.ico" />
+    <Content Include="poke.ico.ico" />
+    <None Include="Resources\UP.png" />
+    <None Include="Resources\Pokedex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Business\business.csproj">
+      <Project>{e22974ce-b144-4fb3-980b-024393771680}</Project>
+      <Name>business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\domain\domain.csproj">
+      <Project>{fe4e1e15-585d-45b2-a8af-0a5344a8678b}</Project>
+      <Name>domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
