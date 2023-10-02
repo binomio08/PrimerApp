@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using domain;
 
-namespace AppPokemon
+namespace business
 {
     //Clase para crear metodos de acceso a datos para los pokemons
     public class PokemonBusiness
@@ -23,17 +23,12 @@ namespace AppPokemon
 
             try
             {
-                //Configuro la dirreción de la base de datos
                 conn.ConnectionString = "server=.\\SQLEXPRESS; database=POKEDEX_DB; integrated security=true";
-                //Configuro el comando/Lectura
                 cmd.CommandType = System.Data.CommandType.Text;
-                cmd.CommandText = "select Id, Numero, Nombre, Descripcion, UrlImagen from POKEMONS";
-                //Ejecuto cdm en la conexión (conn)
+                cmd.CommandText = "SELECT P.Id, Numero, Nombre, P.Descripcion, UrlImagen, E.Id, E.Descripcion Tipo, D.Descripcion Debilidad FROM POKEMONS P, ELEMENTOS E, ELEMENTOS D WHERE E.Id = P.IdTipo AND D.Id = P.IdDebilidad";
                 cmd.Connection = conn;
 
-                //Abro la conexión
                 conn.Open();
-                //Ejecuto la lectura
                 reader = cmd.ExecuteReader();
 
                 //Mientras haya un registro va a leer fila por fila lo que encuentre en al base de datos
@@ -46,13 +41,15 @@ namespace AppPokemon
                     aux.Name = (string)reader["Nombre"];
                     aux.Description = (string)reader["Descripcion"];
                     aux.UrlImage = (string)reader["UrlImagen"];
-                    //Crea una lista de obajetos
+                    aux.Tipo = new Element();
+                    aux.Tipo.Description = (string)reader["Tipo"];
+                    aux.Debilidad = new Element();
+                    aux.Debilidad.Description = (string)reader["Debilidad"];
+
                     list.Add(aux);
                 }
 
-                //Cierro la conexión
                 conn.Close();
-                //Devuelve la lista de objetos
                 return list;
             }
             catch (Exception ex)

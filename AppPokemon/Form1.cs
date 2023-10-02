@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using domain;
+using business;
 
 namespace AppPokemon
 {
@@ -25,6 +26,7 @@ namespace AppPokemon
             PokemonBusiness business = new PokemonBusiness();
             listPokemons = business.list();
             dgvPokemons.DataSource = listPokemons;
+            hideColumns();
             loadImage(listPokemons[0].UrlImage);
         }
 
@@ -46,6 +48,12 @@ namespace AppPokemon
             {
                 pbxPokemon.Load("https://marriland.com/wp-content/plugins/marriland-core/images/pokemon/sprites/home/full/eternal-floette.png");
             }
+        }
+
+        private void hideColumns()
+        {
+            dgvPokemons.Columns["UrlImage"].Visible = false;
+            dgvPokemons.Columns["Id"].Visible = false;
         }
     }
 }

@@ -58,7 +58,7 @@
             // dgvPokemons
             // 
             this.dgvPokemons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPokemons.Location = new System.Drawing.Point(285, 395);
+            this.dgvPokemons.Location = new System.Drawing.Point(285, 389);
             this.dgvPokemons.Name = "dgvPokemons";
             this.dgvPokemons.Size = new System.Drawing.Size(299, 219);
             this.dgvPokemons.TabIndex = 3;
