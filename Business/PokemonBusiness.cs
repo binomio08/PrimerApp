@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using domain;
+using Business;
 
 namespace business
 {
@@ -14,48 +15,42 @@ namespace business
         //Método que lee los registro de la base de datos y los convierte en objetos
         public List<Pokemon> list()
         {
-            //Este método crea y devuelve una lista
             List<Pokemon> list = new List<Pokemon>();
-            //Objetos para conectarme a la base de datos y realizar acciones.
-            SqlConnection conn = new SqlConnection();
-            SqlCommand cmd = new SqlCommand();
-            SqlDataReader reader;
+            DataAccess data = new DataAccess();
 
             try
             {
-                conn.ConnectionString = "server=.\\SQLEXPRESS; database=POKEDEX_DB; integrated security=true";
-                cmd.CommandType = System.Data.CommandType.Text;
-                cmd.CommandText = "SELECT P.Id, Numero, Nombre, P.Descripcion, UrlImagen, E.Id, E.Descripcion Tipo, D.Descripcion Debilidad FROM POKEMONS P, ELEMENTOS E, ELEMENTOS D WHERE E.Id = P.IdTipo AND D.Id = P.IdDebilidad";
-                cmd.Connection = conn;
-
-                conn.Open();
-                reader = cmd.ExecuteReader();
+                data.SetQuery("SELECT P.Id, Numero, Nombre, P.Descripcion, UrlImagen, E.Id, E.Descripcion Tipo, D.Descripcion Debilidad FROM POKEMONS P, ELEMENTOS E, ELEMENTOS D WHERE E.Id = P.IdTipo AND D.Id = P.IdDebilidad");
+                data.execRead();
 
                 //Mientras haya un registro va a leer fila por fila lo que encuentre en al base de datos
-                while (reader.Read())
+                //En cada vuelta crea una nueva instacia de pokemon (transfomar la lista en objetos)
+                while (data.Reader.Read())
                 {
-                    // En cada vuelta crea una nueva instacia de pokemon (transfomar la lista en objetos)
                     Pokemon aux = new Pokemon();
-                    aux.Id = (int)reader["Id"];
-                    aux.Number = (int)reader["Numero"];
-                    aux.Name = (string)reader["Nombre"];
-                    aux.Description = (string)reader["Descripcion"];
-                    aux.UrlImage = (string)reader["UrlImagen"];
+                    aux.Id = (int)data.Reader["Id"];
+                    aux.Number = (int)data.Reader["Numero"];
+                    aux.Name = (string)data.Reader["Nombre"];
+                    aux.Description = (string)data.Reader["Descripcion"];
+                    aux.UrlImage = (string)data.Reader["UrlImagen"];
                     aux.Tipo = new Element();
-                    aux.Tipo.Description = (string)reader["Tipo"];
+                    aux.Tipo.Description = (string)data.Reader["Tipo"];
                     aux.Debilidad = new Element();
-                    aux.Debilidad.Description = (string)reader["Debilidad"];
+                    aux.Debilidad.Description = (string)data.Reader["Debilidad"];
 
                     list.Add(aux);
                 }
 
-                conn.Close();
                 return list;
             }
             catch (Exception ex)
             {
 
                 throw ex;
+            }
+            finally
+            {
+                data.CloseConn();
             }
         }
     }
