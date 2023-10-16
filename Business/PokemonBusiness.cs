@@ -109,5 +109,21 @@ namespace business
                 data.CloseConn();
             }
         }
+        public void delete(int id)
+        {
+
+            try
+            {
+                DataAccess data = new DataAccess();
+                data.SetQuery("DELETE from POKEMONS where Id = @id");
+                data.setParameter("@id", id);
+                data.exeNoQuery();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

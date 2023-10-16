@@ -35,6 +35,7 @@
             this.pbxPokemon = new System.Windows.Forms.PictureBox();
             this.ptbxPokedex = new System.Windows.Forms.PictureBox();
             this.btnModify = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPokemons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPokemon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbxPokedex)).BeginInit();
@@ -65,6 +66,7 @@
             this.btnAgregar.BackColor = System.Drawing.SystemColors.Control;
             this.btnAgregar.BackgroundImage = global::AppPokemon.Properties.Resources.redP;
             this.btnAgregar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregar.FlatAppearance.BorderSize = 0;
             this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregar.Location = new System.Drawing.Point(615, 421);
@@ -100,7 +102,7 @@
             this.btnModify.FlatAppearance.BorderSize = 0;
             this.btnModify.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnModify.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModify.Location = new System.Drawing.Point(615, 468);
+            this.btnModify.Location = new System.Drawing.Point(615, 476);
             this.btnModify.Name = "btnModify";
             this.btnModify.Size = new System.Drawing.Size(27, 41);
             this.btnModify.TabIndex = 6;
@@ -108,12 +110,29 @@
             this.btnModify.UseVisualStyleBackColor = false;
             this.btnModify.Click += new System.EventHandler(this.btnModify_Click);
             // 
+            // btnDelete
+            // 
+            this.btnDelete.BackgroundImage = global::AppPokemon.Properties.Resources.redP;
+            this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDelete.FlatAppearance.BorderSize = 0;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDelete.Location = new System.Drawing.Point(615, 531);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(27, 41);
+            this.btnDelete.TabIndex = 7;
+            this.btnDelete.TabStop = false;
+            this.btnDelete.Text = "-";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // fmrPokemon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(880, 675);
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnModify);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.dgvPokemons);
@@ -143,6 +162,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button btnModify;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
 

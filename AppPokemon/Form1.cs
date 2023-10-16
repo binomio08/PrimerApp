@@ -91,5 +91,27 @@ namespace AppPokemon
             modifyPokemon.ShowDialog();
             load();
         }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            PokemonBusiness business = new PokemonBusiness();
+            Pokemon selected;
+
+            try
+            {
+                DialogResult req = MessageBox.Show("Are you sure you want to delete?", "Deleting", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (req == DialogResult.Yes)
+                {
+                    selected = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
+                    business.delete(selected.Id);
+                    load();
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
     }
 }
