@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Runtime.Remoting.Contexts;
 
 namespace Business
 {
@@ -49,6 +50,26 @@ namespace Business
             if (reader != null)
                 reader.Close();
             conn.Close();
+        }
+
+        public void exeNoQuery()
+        {
+            cmd.Connection = conn;
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery(); 
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public void setParameter(string nombre, object valor)
+        {
+            cmd.Parameters.AddWithValue(nombre, valor);
         }
     }
 }

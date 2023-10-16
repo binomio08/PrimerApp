@@ -22,12 +22,30 @@ namespace AppPokemon
 
         private void fmrPokemon_Load(object sender, EventArgs e)
         {
+            load();
+        }
+
+        private void load()
+        {
             //Invoco la lectura de la base de datos y muestro en pantalla
             PokemonBusiness business = new PokemonBusiness();
-            listPokemons = business.list();
-            dgvPokemons.DataSource = listPokemons;
-            hideColumns();
-            loadImage(listPokemons[0].UrlImage);
+            try
+            {
+
+                listPokemons = business.list();
+
+                listPokemons = listPokemons.OrderBy(p => p.Number).ToList();
+                dgvPokemons.DataSource = listPokemons;
+                hideColumns();
+                loadImage(listPokemons[0].UrlImage);
+                btnAgregar.FlatStyle = FlatStyle.Flat;
+                btnAgregar.FlatAppearance.BorderSize = 0;
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         //Metodo para que se muestre la imagen de la fila seleccionada
@@ -54,6 +72,24 @@ namespace AppPokemon
         {
             dgvPokemons.Columns["UrlImage"].Visible = false;
             dgvPokemons.Columns["Id"].Visible = false;
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            frmCreatePokemon createPokemon = new frmCreatePokemon();
+            createPokemon.ShowDialog();
+            load();
+
+        }
+
+        private void btnModify_Click(object sender, EventArgs e)
+        {
+            Pokemon selected;
+            selected = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
+
+            frmCreatePokemon modifyPokemon = new frmCreatePokemon(selected);
+            modifyPokemon.ShowDialog();
+            load();
         }
     }
 }

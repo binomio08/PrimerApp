@@ -55,10 +55,19 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCreatePokemon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCreatePokemon.Designer.cs">
+      <DependentUpon>frmCreatePokemon.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCreatePokemon.resx">
+      <DependentUpon>frmCreatePokemon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -86,6 +95,7 @@
   <ItemGroup>
     <Content Include="poke.ico" />
     <Content Include="poke.ico.ico" />
+    <None Include="Resources\redP.png" />
     <None Include="Resources\UP.png" />
     <None Include="Resources\Pokedex.png" />
   </ItemGroup>
