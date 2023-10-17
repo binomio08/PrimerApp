@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using domain;
 using business;
+using Business;
 
 namespace AppPokemon
 {
@@ -94,6 +95,16 @@ namespace AppPokemon
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            delete();
+        }
+
+        private void disablePokemonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            delete(true);
+        }
+
+        private void delete(bool disable= false)
+        {
             PokemonBusiness business = new PokemonBusiness();
             Pokemon selected;
 
@@ -103,10 +114,13 @@ namespace AppPokemon
                 if (req == DialogResult.Yes)
                 {
                     selected = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
-                    business.delete(selected.Id);
+                    if(disable)
+                        business.disablePokemon(selected.Id);
+                    else
+                        business.delete(selected.Id);
                     load();
                 }
-                
+
             }
             catch (Exception ex)
             {

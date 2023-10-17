@@ -20,7 +20,7 @@ namespace business
 
             try
             {
-                data.SetQuery("SELECT P.Id, Numero, Nombre, P.Descripcion, UrlImagen, E.Id, E.Descripcion Tipo, D.Descripcion Debilidad, P.IdTipo, P.IdDebilidad FROM POKEMONS P, ELEMENTOS E, ELEMENTOS D WHERE E.Id = P.IdTipo AND D.Id = P.IdDebilidad");
+                data.SetQuery("SELECT P.Id, Numero, Nombre, P.Descripcion, UrlImagen, E.Id, E.Descripcion Tipo, D.Descripcion Debilidad, P.IdTipo, P.IdDebilidad FROM POKEMONS P, ELEMENTOS E, ELEMENTOS D WHERE E.Id = P.IdTipo AND D.Id = P.IdDebilidad And P.Activo = 1");
                 data.execRead();
 
                 //Mientras haya un registro va a leer fila por fila lo que encuentre en al base de datos
@@ -123,6 +123,21 @@ namespace business
             {
 
                 throw;
+            }
+        }
+        public void disablePokemon(int id)
+        {
+            try
+            {
+                DataAccess data = new DataAccess();
+                data.SetQuery("UPDATE POKEMONS set Activo = 0 where id = @id");
+                data.setParameter("@id", id);
+                data.exeNoQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
         }
     }
