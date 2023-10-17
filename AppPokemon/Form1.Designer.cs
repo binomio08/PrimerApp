@@ -31,18 +31,20 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fmrPokemon));
             this.dgvPokemons = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addPokemonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deletePokemonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modPokemonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspDisablePokemon = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ftSearch = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbxSearch = new System.Windows.Forms.ToolStripTextBox();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.pbxPokemon = new System.Windows.Forms.PictureBox();
             this.ptbxPokedex = new System.Windows.Forms.PictureBox();
             this.btnModify = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addPokemonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deletePokemonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.modPokemonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tspDisablePokemon = new System.Windows.Forms.ToolStripMenuItem();
+            this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPokemons)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPokemon)).BeginInit();
@@ -64,14 +66,73 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
             this.toolsToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.ftSearch,
+            this.tbxSearch});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(880, 24);
-            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Size = new System.Drawing.Size(880, 27);
+            this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addPokemonToolStripMenuItem,
+            this.deletePokemonToolStripMenuItem,
+            this.modPokemonToolStripMenuItem,
+            this.tspDisablePokemon});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 23);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // addPokemonToolStripMenuItem
+            // 
+            this.addPokemonToolStripMenuItem.Name = "addPokemonToolStripMenuItem";
+            this.addPokemonToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.addPokemonToolStripMenuItem.Text = "Add Pokemon";
+            this.addPokemonToolStripMenuItem.Click += new System.EventHandler(this.addPokemonToolStripMenuItem_Click);
+            // 
+            // deletePokemonToolStripMenuItem
+            // 
+            this.deletePokemonToolStripMenuItem.Name = "deletePokemonToolStripMenuItem";
+            this.deletePokemonToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.deletePokemonToolStripMenuItem.Text = "Delete Pokemon";
+            this.deletePokemonToolStripMenuItem.Click += new System.EventHandler(this.deletePokemonToolStripMenuItem_Click);
+            // 
+            // modPokemonToolStripMenuItem
+            // 
+            this.modPokemonToolStripMenuItem.Name = "modPokemonToolStripMenuItem";
+            this.modPokemonToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.modPokemonToolStripMenuItem.Text = "Mod Pokemon";
+            this.modPokemonToolStripMenuItem.Click += new System.EventHandler(this.modPokemonToolStripMenuItem_Click);
+            // 
+            // tspDisablePokemon
+            // 
+            this.tspDisablePokemon.Name = "tspDisablePokemon";
+            this.tspDisablePokemon.Size = new System.Drawing.Size(166, 22);
+            this.tspDisablePokemon.Text = "Disable Pokemon";
+            this.tspDisablePokemon.Click += new System.EventHandler(this.disablePokemonToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 23);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // ftSearch
+            // 
+            this.ftSearch.Name = "ftSearch";
+            this.ftSearch.Size = new System.Drawing.Size(57, 23);
+            this.ftSearch.Text = "Search:";
+            // 
+            // tbxSearch
+            // 
+            this.tbxSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.tbxSearch.Name = "tbxSearch";
+            this.tbxSearch.Size = new System.Drawing.Size(100, 23);
+            this.tbxSearch.TextChanged += new System.EventHandler(this.tbxSearch_TextChanged);
             // 
             // btnAgregar
             // 
@@ -84,7 +145,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(616, 431);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(27, 57);
-            this.btnAgregar.TabIndex = 5;
+            this.btnAgregar.TabIndex = 1;
             this.btnAgregar.Text = "+";
             this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
@@ -117,7 +178,7 @@
             this.btnModify.Location = new System.Drawing.Point(616, 486);
             this.btnModify.Name = "btnModify";
             this.btnModify.Size = new System.Drawing.Size(27, 57);
-            this.btnModify.TabIndex = 6;
+            this.btnModify.TabIndex = 2;
             this.btnModify.Text = "M";
             this.btnModify.UseVisualStyleBackColor = false;
             this.btnModify.Click += new System.EventHandler(this.btnModify_Click);
@@ -132,59 +193,17 @@
             this.btnDelete.Location = new System.Drawing.Point(616, 541);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(27, 57);
-            this.btnDelete.TabIndex = 7;
+            this.btnDelete.TabIndex = 3;
             this.btnDelete.TabStop = false;
             this.btnDelete.Text = "-";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
-            // fileToolStripMenuItem
+            // directorySearcher1
             // 
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addPokemonToolStripMenuItem,
-            this.deletePokemonToolStripMenuItem,
-            this.modPokemonToolStripMenuItem,
-            this.tspDisablePokemon});
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
-            // 
-            // addPokemonToolStripMenuItem
-            // 
-            this.addPokemonToolStripMenuItem.Name = "addPokemonToolStripMenuItem";
-            this.addPokemonToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.addPokemonToolStripMenuItem.Text = "Add Pokemon";
-            // 
-            // deletePokemonToolStripMenuItem
-            // 
-            this.deletePokemonToolStripMenuItem.Name = "deletePokemonToolStripMenuItem";
-            this.deletePokemonToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.deletePokemonToolStripMenuItem.Text = "Delete Pokemon";
-            // 
-            // modPokemonToolStripMenuItem
-            // 
-            this.modPokemonToolStripMenuItem.Name = "modPokemonToolStripMenuItem";
-            this.modPokemonToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.modPokemonToolStripMenuItem.Text = "Mod Pokemon";
-            // 
-            // tspDisablePokemon
-            // 
-            this.tspDisablePokemon.Name = "tspDisablePokemon";
-            this.tspDisablePokemon.Size = new System.Drawing.Size(180, 22);
-            this.tspDisablePokemon.Text = "Disable Pokemon";
-            this.tspDisablePokemon.Click += new System.EventHandler(this.disablePokemonToolStripMenuItem_Click);
+            this.directorySearcher1.ClientTimeout = System.TimeSpan.Parse("-00:00:01");
+            this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
+            this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
             // 
             // fmrPokemon
             // 
@@ -225,13 +244,15 @@
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button btnModify;
         private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addPokemonToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deletePokemonToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem modPokemonToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tspDisablePokemon;
+        private System.DirectoryServices.DirectorySearcher directorySearcher1;
+        private System.Windows.Forms.ToolStripMenuItem ftSearch;
+        private System.Windows.Forms.ToolStripTextBox tbxSearch;
     }
 }
 

@@ -52,8 +52,12 @@ namespace AppPokemon
         //Metodo para que se muestre la imagen de la fila seleccionada
         private void dgvPokemons_SelectionChanged(object sender, EventArgs e)
         {
-            Pokemon selected = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
-            loadImage(selected.UrlImage);
+            if(dgvPokemons.CurrentRow != null)
+            {
+                Pokemon selected = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
+                loadImage(selected.UrlImage);
+
+            }
         }
 
         //Método para cargar imágen, en caso que el dato extraido no contenga imágen devuelve una genérica
@@ -126,6 +130,47 @@ namespace AppPokemon
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void addPokemonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmCreatePokemon createPokemon = new frmCreatePokemon();
+            createPokemon.ShowDialog();
+            load();
+        }
+
+        private void modPokemonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Pokemon selected;
+            selected = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
+
+            frmCreatePokemon modifyPokemon = new frmCreatePokemon(selected);
+            modifyPokemon.ShowDialog();
+            load();
+        }
+
+        private void deletePokemonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            delete();
+        }
+
+        private void tbxSearch_TextChanged(object sender, EventArgs e)
+        {
+            List<Pokemon> filterList;
+            string filter = tbxSearch.Text;
+
+            if(filter != "")
+            {
+                filterList = listPokemons.FindAll(x => x.Name.ToUpper().Contains(filter.ToUpper()) || x.Number.ToString().Contains(filter));
+            }
+            else
+            {
+                filterList = listPokemons;
+            }
+
+            dgvPokemons.DataSource = null;
+            dgvPokemons.DataSource = filterList;
+            hideColumns();
         }
     }
 }
