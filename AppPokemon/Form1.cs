@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using domain;
 using business;
 using Business;
+using System.Diagnostics;
 
 namespace AppPokemon
 {
@@ -24,6 +25,10 @@ namespace AppPokemon
         private void fmrPokemon_Load(object sender, EventArgs e)
         {
             load();
+            cboField.Items.Add("Description");
+            cboField.Items.Add("Name");
+            cboField.Items.Add("Number");
+
         }
 
         private void load()
@@ -171,6 +176,42 @@ namespace AppPokemon
             dgvPokemons.DataSource = null;
             dgvPokemons.DataSource = filterList;
             hideColumns();
+        }
+
+        private void cboField_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string option = cboField.SelectedItem.ToString();
+            if(option == "Number")
+            {
+                cboRange.Items.Clear();
+                cboRange.Items.Add("Greater than");
+                cboRange.Items.Add("Less than");
+                cboRange.Items.Add("Equal to");
+            }
+            else
+            {
+                cboRange.Items.Clear();
+                cboRange.Items.Add("Starts with");
+                cboRange.Items.Add("Ends with");
+                cboRange.Items.Add("Contains");
+            }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            PokemonBusiness business = new PokemonBusiness();
+            try
+            {
+                string field = cboField.SelectedItem.ToString();
+                string range = cboRange.SelectedItem.ToString();
+                string filter = tbxFilter.Text;
+                dgvPokemons.DataSource = business.filter(field, range, filter);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

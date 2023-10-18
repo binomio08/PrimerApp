@@ -10,12 +10,15 @@ using System.Windows.Forms;
 using domain;
 using business;
 using Business;
+using System.IO;
+using System.Configuration;
 
 namespace AppPokemon
 {
     public partial class frmCreatePokemon : Form
     {
         private Pokemon pokemon = null;
+        private OpenFileDialog archive = null;
         public frmCreatePokemon()
         {
             InitializeComponent();
@@ -58,6 +61,11 @@ namespace AppPokemon
                 {
                     pokeBusiness.create(pokemon);
                     MessageBox.Show("Successfully added");
+                }
+
+                if(archive != null && !(txtUrlImage.Text.ToUpper().Contains("HTTP")))
+                {
+                    File.Copy(archive.FileName, ConfigurationManager.AppSettings["images-folder"] + archive.SafeFileName);
                 }
                 
                 Close();
@@ -126,6 +134,17 @@ namespace AppPokemon
             catch (Exception)
             {
                 pbxPokemon.Load("https://marriland.com/wp-content/plugins/marriland-core/images/pokemon/sprites/home/full/eternal-floette.png");
+            }
+        }
+
+        private void btnAddImage_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog archive = new OpenFileDialog();
+            archive.Filter = "jpg|*.jpg | png|*.png";
+            if (archive.ShowDialog() == DialogResult.OK)
+            {
+                txtUrlImage.Text = archive.FileName;
+                loadImage(archive.FileName);
             }
         }
     }
